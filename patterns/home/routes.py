@@ -6,6 +6,7 @@ home_bp = Blueprint(
     static_folder='static'
     )
 
+
 @home_bp.route('/')
 def hello():
     return render_template('index.html', title='home', text='Hello world')

@@ -1,4 +1,4 @@
-from config import Config, DevConfig
+from config import DevConfig
 from flask import Flask
 
 
