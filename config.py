@@ -19,4 +19,4 @@ class DevConfig(Config):
     FLASK_ENV = 'development'
     DEBUG = True
     TESTING = True
-    # WTF_CSRF_ENABLED = False
+    WTF_CSRF_ENABLED = False
