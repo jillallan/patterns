@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    {% import 'validation.html' as validation %}
+
+    <div class=container>
+        <form method="post">
+            <!--check if this needs to go in each field-->
+            {{ form.hidden_tag() }} 
+
+            <div>
+                {{ form.email.label }}
+                {{ form.email }}
+            </div>
+            {{ validation.flash_errors(form.email) }}
+
+            <div>
+                {{ form.password.label }}
+                {{ form.password }}
+            </div>
+            {{ validation.flash_errors(form.password) }}
+
+            <div>
+                {{ form.confirm.label }}
+                {{ form.confirm }}
+            </div>
+            {{ validation.flash_errors(form.confirm) }}
+
+
+            {{ form.submit }}
+
+        </form>
+
+
+    </div>
+{% endblock %}

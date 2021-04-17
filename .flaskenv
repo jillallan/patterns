@@ -1,2 +1,2 @@
-export FLASK_APP=hello
+export FLASK_APP=patterns
 export FLASK_ENV=development
