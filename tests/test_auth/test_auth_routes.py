@@ -3,8 +3,7 @@ import pytest
 
 def test_sign_up(client):
     get_response = client.get('/sign-up')
-    # assert b'Sign Up' in get_response.data
-    get_response
+    assert b'Sign Up' in get_response.data
     assert get_response.status_code == 200
 
     # post_response = client.post(
@@ -20,7 +19,7 @@ def test_sign_up(client):
 
 
 @pytest.mark.parametrize(
-    ("email, password, confirm, message"),
+    ('email, password, confirm, message'),
     [
         ('', 'password', 'password', b'Please provide an email'),
         (
@@ -58,3 +57,25 @@ def test_sign_up_validation(client, email, password, confirm, message):
             }
         )
     assert message in post_response.data
+
+
+def test_login(client):
+    response = client.get('/login')
+    assert b'Login' in response.data
+    assert response.status_code == 200
+
+
+@pytest.mark.parametrize(
+    ('email, password, message'),
+    [
+        ('', 'password', b'Please provide an email'),
+        ('user.com', 'password', b'Please provide a valid email address'),
+        ('user@example.com', '', b'Please provide a password')
+    ]
+)
+def test_login_validation(client, email, password, message):
+    response = client.post(
+        '/login',
+        data={'email': email, 'password': password}
+    )
+    assert message in response.data
