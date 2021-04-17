@@ -1,15 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.fields.simple import SubmitField
+from wtforms.fields.simple import PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
-
-
-class Test(FlaskForm):
-    name = StringField(
-        'Name',
-    )
-
-    submit = SubmitField('Submit')
 
 
 class SignUp(FlaskForm):
@@ -18,28 +10,28 @@ class SignUp(FlaskForm):
     email = StringField(
         'Email Address',
         [
-            Email(message='Please provide a valid email address'),
-            DataRequired(message='Please provide an email')
+            DataRequired(message='Please provide an email'),
+            Email(message='Please provide a valid email address')
         ]
-    )  # Test for invalid email
+    )
 
-    password = StringField(
+    password = PasswordField(
         'Password',
         [
+            DataRequired(message='Please provide a password'),
             Length(
-                min=4, max=25,
-                message='Password length must be between 4 and 25 characters'),
-            DataRequired(message='Please provide a password')
+                min=8, max=8,
+                message='Passwords must be between 8 and 25 characters'
+            )
         ]
-    )  # Test for passowrd that is too long and password that is too short
-    # might need to disable javascript validation
+    )
 
-    confirm = StringField(
-        'Confirm Your Password',
+    confirm = PasswordField(
+        'Confirm Password',
         [
-            EqualTo('password', message='Passwords must match'),
-            DataRequired(message='Please confirm your password')
+            DataRequired(message='Please confirm your password'),
+            EqualTo('password', message='Passwords must match')
         ]
-    )  # Test for matching and mis-matching passwords
+    )
 
     submit = SubmitField('Sign Up')

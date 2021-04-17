@@ -16,4 +16,4 @@ class DevConfig(Config):
     FLASK_ENV = 'development'
     DEBUG = True
     TESTING = True
-
+    # CSRF_ENABLED = False

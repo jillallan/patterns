@@ -9,5 +9,9 @@ home_bp = Blueprint(
 
 @home_bp.route('/')
 def hello():
-
     return render_template('index.html', title='home', text='Hello world')
+
+
+@home_bp.route('/success')
+def success():
+    return render_template('success.html')

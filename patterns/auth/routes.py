@@ -1,5 +1,5 @@
 from flask.helpers import url_for
-from patterns.auth.forms import SignUp, Test
+from patterns.auth.forms import SignUp
 from flask import Blueprint, redirect, render_template
 
 auth_bp = Blueprint(
@@ -14,6 +14,6 @@ def sign_up():
     """Handles sign up for new users"""
     form = SignUp()
     if form.validate_on_submit():
-        return redirect(url_for('home_bp.hello'))
+        return redirect(url_for('home_bp.success'))
 
     return render_template('sign-up.html', form=form)

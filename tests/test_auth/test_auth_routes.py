@@ -3,51 +3,58 @@ import pytest
 
 def test_sign_up(client):
     get_response = client.get('/sign-up')
-    assert b'Sign Up' in get_response.data
+    # assert b'Sign Up' in get_response.data
+    get_response
     assert get_response.status_code == 200
 
-    post_response = client.post(
-        '/sign-up',
-        data={
-            'email': 'user@example.com',
-            'password': 'password',
-            'conmfirm': 'password'
-            }
-        )
-    post_response
-    assert 'http://localhost' == post_response.headers['Location']
+    # post_response = client.post(
+    #     '/sign-up',
+    #     data={
+    #         'email': 'user@example.com'
+    #         },
+    #     follow_redirects=True  # look this up
+    #     )
+    # assert request.path == 'http://localhost/success'
+    # assert request.path == url_for('home_bp.success')
+    # assert 'http://localhost/success' == post_response.headers['Location']
 
 
 @pytest.mark.parametrize(
-    'email, password, confirm, message',
+    ("email, password, confirm, message"),
     [
+        ('', 'password', 'password', b'Please provide an email'),
         (
-            'user@example.com', 'passw',
-            'password12', b'Passwords must match'
+            'user.com', 'password',
+            'password', b'Please provide a valid email address'
+        ),
+        ('user@example.com', '', '', b'Please provide a password'),
+        (
+            'user@example.com', 'pass', 'pass',
+            b'Passwords must be between 8 and 25 characters'
         ),
         (
-            'user.com', 'password123',
-            'password123', b'Please provide a valid email address'
+            'user@example.com',
+            'passwordpasswordpasswordpassword',
+            'passwordpasswordpasswordpassword',
+            b'Passwords must be between 8 and 25 characters'
         ),
         (
-            'user@example.com', 'pas', 'pas',
-            b'Password length must be between 4 and 25 characters'
+            'user@example.com', 'password', '',
+            b'Please confirm your password'
         ),
         (
-            'user@example.com', 'password123',
-            '', b'Please confirm your password'
+            'user@example.com', 'password', 'password1',
+            b'Passwords must match'
         ),
-        ('user@example.com', '', 'password123', b'Please provide a password'),
-        ('', 'password123', 'password123', b'Please provide an email')
-
-    ])
+    ]
+)
 def test_sign_up_validation(client, email, password, confirm, message):
-    response = client.post(
+    post_response = client.post(
         '/sign-up',
         data={
             'email': email,
             'password': password,
-            'conmfirm': confirm
+            'confirm': confirm
             }
         )
-    assert message in response.data
+    assert message in post_response.data
