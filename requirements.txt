@@ -4,7 +4,9 @@ dnspython==2.1.0
 email-validator==1.1.2
 flake8==3.9.0
 Flask==1.1.2
+Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.14.3
+greenlet==1.0.0
 idna==3.1
 iniconfig==1.1.1
 itsdangerous==1.1.0
@@ -19,6 +21,7 @@ pyflakes==2.3.1
 pyparsing==2.4.7
 pytest==6.2.3
 python-dotenv==0.17.0
+SQLAlchemy==1.4.9
 toml==0.10.2
 Werkzeug==1.0.1
 WTForms==2.3.3
