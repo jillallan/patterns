@@ -130,3 +130,11 @@ def test_login_validation(client, email, password, message):
         data={'email': email, 'password': password}
     )
     assert message in response.data
+
+
+def test_login_redirect(client, auth):
+    response = client.get('/dashboard')
+    # assert b'Login' in response.data
+    assert response.status_code == 302
+    assert response.headers['Location'] == \
+        'http://localhost/login?next=home_bp.dashboard'
