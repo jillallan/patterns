@@ -1,8 +1,9 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from patterns import db
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """Data model for user accounts."""
 
     __tablename__ = 'users'
